@@ -15,7 +15,7 @@ START_LOG=$MODDIR/startup_count.log
 RESCUE_LOG=$MODDIR/rescue_count.log
 VERSION_FILE=$MODDIR/now_version
 WHITELIST_FILE=$MODDIR/白名单.conf
-DEBUG_LOG=$MODDIR/brick_guardian_early_late.log
+DEBUG_LOG=$MODDIR/brick_guardian_late_debug.log
 
 # 确保日志目录存在
 ensure_log_dir() {
