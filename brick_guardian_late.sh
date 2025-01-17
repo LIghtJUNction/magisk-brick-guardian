@@ -227,7 +227,7 @@ update_module_description() {
     local rescue_count=$1
     log_info "更新模块描述，当前救砖次数: $rescue_count"
     
-    local description="自动救砖条件：系统连续重启到3次或卡在开机界面${BOOT_WAIT_TIME}分钟(每次OTA升级系统时将自动延长时间至15分钟)，将禁用所有模块。若再不开机会执行APP解冻救砖模式再开机。模块目录/白名单.conf里可以添加救砖跳过的白名单。已为您自动救砖：${rescue_count}次。"
+    local description="自动救砖条件：系统连续重启到3次或卡在开机界面${BOOT_WAIT_TIME}分钟(每次OTA升级系统时将自动延长时间至15分钟)，将禁用所有模块。若再不开机会执行APP解冻救砖模式再开机。模块目录/白名单.conf里可以添加救砖跳过的白名单。GitHub: https://github.com/kirklin/magisk-brick-guardian 已为您自动救砖：${rescue_count}次。"
     
     # 使用临时文件进行原子写入
     local temp_file="${MODULE_INFO}.tmp"

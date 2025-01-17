@@ -3,4 +3,4 @@ name=Magisk Brick Guardian (自动防砖守护)
 version=v250117
 versionCode=250117
 author=Kirk Lin (https://github.com/kirklin)
-description=模块特性：1)自动检测并防止模块导致的系统无法启动 2)支持智能白名单机制 3)OTA升级保护 4)首次启动后请等待90秒以确认模块正常运行。如遇到无法开机情况，系统将自动进行修复。
+description=模块特性：1)自动检测并防止模块导致的系统无法启动 2)支持智能白名单机制 3)OTA升级保护 4)首次启动后请等待90秒以确认模块正常运行。如遇到无法开机情况，系统将自动进行修复。GitHub: https://github.com/kirklin/magisk-brick-guardian
