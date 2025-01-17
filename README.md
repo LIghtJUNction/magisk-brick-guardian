@@ -32,6 +32,7 @@
 
 ## 注意事项
 
+- ⚠️ 安全警告：请仅从本项目的 [GitHub Releases](https://github.com/kirklin/magisk-brick-guardian/releases) 页面下载模块，以防止下载到被恶意篡改的版本
 - 首次安装后请耐心等待90秒，让模块完成初始化
 - 建议在安装其他模块前先安装本模块，以获得最佳保护
 - 如果您修改了白名单配置，请重启设备以使更改生效
