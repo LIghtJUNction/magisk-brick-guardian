@@ -1,0 +1,45 @@
+name: Release Magisk Module
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Create Magisk Module
+        run: |
+          # 创建临时目录
+          mkdir -p temp_module
+          
+          # 复制必要文件到临时目录
+          cp -r META-INF temp_module/
+          cp -r system temp_module/ || true
+          cp module.prop temp_module/
+          cp service.sh temp_module/ || true
+          cp post-fs-data.sh temp_module/ || true
+          cp uninstall.sh temp_module/ || true
+          cp install.sh temp_module/
+          cp brick_guardian_early.sh temp_module/
+          cp brick_guardian_late.sh temp_module/
+          cp 白名单.conf temp_module/
+          
+          # 创建zip包
+          cd temp_module
+          zip -r9 "../magisk-brick-guardian-${GITHUB_REF#refs/tags/}.zip" .
+          cd ..
+          
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: magisk-brick-guardian-*.zip
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
