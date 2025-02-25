@@ -53,6 +53,7 @@ on_install() {
   unzip -o "$ZIPFILE" 'brick_guardian_late.sh' -d $MODPATH >&2
   unzip -o "$ZIPFILE" 'post-fs-data.sh' -d $MODPATH >&2   
   unzip -o "$ZIPFILE" 'service.sh' -d $MODPATH >&2   
+  unzip -o "$ZIPFILE" 'action.sh' -d $MODPATH >&2
   unzip -o "$ZIPFILE" 'module.prop' -d $MODPATH >&2
   unzip -o "$ZIPFILE" 'uninstall.sh' -d $MODPATH >&2
   unzip -o "$ZIPFILE" '白名单.conf' -d $MODPATH >&2
@@ -65,7 +66,7 @@ on_install() {
   # 验证关键文件是否存在
   ui_print "- 验证文件完整性..."
   local missing_files=0
-  for script in brick_guardian_early.sh brick_guardian_late.sh post-fs-data.sh service.sh module.prop 白名单.conf; do
+  for script in brick_guardian_early.sh brick_guardian_late.sh post-fs-data.sh service.sh action.sh module.prop 白名单.conf; do
     if [ ! -f "$MODPATH/$script" ]; then
       ui_print "! 错误：$script 未能成功安装"
       missing_files=1
@@ -89,7 +90,7 @@ set_permissions() {
   
   ui_print "- 设置脚本执行权限..."
   # 设置脚本执行权限
-  for script in brick_guardian_early.sh brick_guardian_late.sh post-fs-data.sh service.sh; do
+  for script in brick_guardian_early.sh brick_guardian_late.sh post-fs-data.sh service.sh action.sh; do
     if [ -f "$MODPATH/$script" ]; then
       set_perm $MODPATH/$script 0 0 0755
       ui_print "  √ $script 权限设置完成"
