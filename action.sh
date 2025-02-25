@@ -2,7 +2,7 @@
 # Copyright (C) 2024 Kirk Lin
 # 
 # This module is part of Magisk Brick Guardian
-# Version: 250117
+# Version: 250225
 
 # 设置完整的PATH
 export PATH="/product/bin:/apex/com.android.runtime/bin:/apex/com.android.art/bin:/system_ext/bin:/system/bin:/system/xbin:/odm/bin:/vendor/bin:/vendor/xbin:/data/user/0/com.gjzs.chongzhi.online/files/usr/busybox:/dev/P5TeaG/.magisk/busybox"
@@ -95,5 +95,4 @@ echo "====================================="
 echo "  感谢使用 Magisk Brick Guardian！"
 echo "====================================="
 
-# 等待用户按任意键退出
-sleep 10 
+exit 0 
