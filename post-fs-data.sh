@@ -82,6 +82,52 @@ handle_modules_update() {
     return 0
 }
 
+# 处理modules_update.bak目录
+handle_modules_update_bak() {
+    if [ -d "/data/adb/modules_update.bak" ]; then
+        log_info "检测到modules_update.bak目录，准备处理..."
+        
+        # 检查modules目录是否存在
+        if [ ! -d "/data/adb/modules" ]; then
+            log_info "创建modules目录..."
+            mkdir -p /data/adb/modules
+            chmod 755 /data/adb/modules
+        fi
+        
+        # 处理备份目录中的模块
+        for module_dir in /data/adb/modules_update.bak/*; do
+            if [ -d "$module_dir" ]; then
+                module_name=$(basename "$module_dir")
+                log_info "处理模块: $module_name"
+                
+                # 如果模块已存在，先删除旧版本
+                if [ -d "/data/adb/modules/$module_name" ]; then
+                    log_info "删除旧版本模块: $module_name"
+                    rm -rf "/data/adb/modules/$module_name"
+                fi
+                
+                # 移动新版本模块
+                if mv -f "$module_dir" "/data/adb/modules/"; then
+                    log_info "模块 $module_name 更新成功"
+                else
+                    log_error "模块 $module_name 更新失败"
+                fi
+            fi
+        done
+        
+        # 删除备份目录
+        log_info "删除modules_update.bak目录..."
+        rm -rf /data/adb/modules_update.bak
+        sync
+        
+        # 返回1表示需要重启
+        return 1
+    fi
+    
+    # 返回0表示不需要重启
+    return 0
+}
+
 # 确保modules目录存在
 ensure_modules_dir() {
     if [ ! -d "/data/adb/modules" ]; then
@@ -109,14 +155,18 @@ main() {
     # 处理modules_update目录
     if handle_modules_update; then
         log_info "modules_update处理完成"
-        if [ -d "/data/adb/modules_update.bak" ]; then
-            log_info "检测到modules_update备份，准备重启..."
-            sync
-            reboot
-            exit 0
-        fi
     else
         log_error "modules_update处理失败"
+    fi
+    
+    # 处理modules_update.bak目录
+    if handle_modules_update_bak; then
+        log_info "modules_update.bak处理完成，无需重启"
+    else
+        log_info "modules_update.bak处理完成，准备重启..."
+        sync
+        reboot
+        exit 0
     fi
 
     # 确保modules目录存在
